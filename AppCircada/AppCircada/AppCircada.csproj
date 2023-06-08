@@ -1,0 +1,695 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>AppCircada</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>AppCircada</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.appcircada</ApplicationId>
+		<ApplicationIdGuid>d4ccb027-e17f-4640-b42e-2caf25362a5d</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <RunAOTCompilation>True</RunAOTCompilation>
+	  <PublishTrimmed>True</PublishTrimmed>
+	  <DebugSymbols>False</DebugSymbols>
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <MtouchUseLlvm>True</MtouchUseLlvm>
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>CircadApp</ApplicationTitle>
+	  <ApplicationId>com.salvadorjesus.CircadApp</ApplicationId>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationVersion>2</ApplicationVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\app_icon.svg" BaseSize="1024,1024" Color="#FFFFFF" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#CF4B47" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf" />
+	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
+	  <None Remove="Resources\Fonts\FuturaPTBook.otf" />
+	  <None Remove="Resources\Fonts\FuturaPTMedium.otf" />
+	  <None Remove="Resources\Fonts\FuturaStd-Bold.otf" />
+	  <None Remove="Resources\Fonts\FuturaStd-Heavy.otf" />
+	  <None Remove="Resources\Fonts\FuturaStd-Light.otf" />
+	  <None Remove="Resources\Images\Backgrounds\hero_black.jpg" />
+	  <None Remove="Resources\Images\Backgrounds\hero_blue.jpg" />
+	  <None Remove="Resources\Images\Backgrounds\hero_gray.jpg" />
+	  <None Remove="Resources\Images\Backgrounds\hero_pink.jpg" />
+	  <None Remove="Resources\Images\Backgrounds\hero_red.jpg" />
+	  <None Remove="Resources\Images\Backgrounds\hero_white.jpg" />
+	  <None Remove="Resources\Images\imagen_circada.png" />
+	  <None Remove="Resources\Images\logo_circada_negro.svg" />
+	  <None Remove="Resources\Images\m.png" />
+	  <None Remove="Resources\Images\quiz\expertos1.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos100.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos101.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos102.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos103.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos104.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos105.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos106.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos107.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos108.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos109.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos11.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos110.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos111.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos112.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos113.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos114.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos115.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos116.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos117.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos118.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos119.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos12.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos120.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos121.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos122.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos123.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos124.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos125.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos126.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos127.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos128.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos129.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos13.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos130.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos131.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos132.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos133.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos134.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos135.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos136.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos137.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos138.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos139.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos14.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos140.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos141.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos142.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos143.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos144.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos145.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos146.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos147.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos148.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos149.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos15.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos150.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos151.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos152.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos153.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos154.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos155.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos156.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos157.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos158.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos159.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos16.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos160.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos161.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos162.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos163.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos164.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos165.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos166.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos167.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos168.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos169.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos170.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos171.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos172.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos173.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos174.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos175.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos176.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos18.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos19.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos20.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos21.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos22.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos23.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos24.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos25.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos26.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos27.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos28.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos29.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos30.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos31.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos32.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos33.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos34.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos35.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos36.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos37.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos38.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos39.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos40.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos41.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos42.jpg" />
+	  <None Remove="Resources\Images\quiz\Expertos43.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos44.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos45.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos46.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos47.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos48.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos49.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos50.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos51.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos52.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos53.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos54.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos55.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos56.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos57.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos58.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos59.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos6.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos60.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos61.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos62.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos63.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos64.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos66.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos67.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos68.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos69.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos70.JPG" />
+	  <None Remove="Resources\Images\quiz\expertos71.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos72.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos73.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos74.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos75.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos76.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos77.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos78.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos79.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos80.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos81.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos82.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos83.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos84.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos85.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos86.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos87.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos88.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos89.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos9.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos90.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos91.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos92.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos93.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos94.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos95.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos96.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos97.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos98.jpg" />
+	  <None Remove="Resources\Images\quiz\expertos99.jpg" />
+	  <None Remove="Resources\Images\quiz\principantes13.jpg" />
+	  <None Remove="Resources\Images\quiz\principantes21.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes10.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes100.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes101.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes102.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes103.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes104.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes105.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes14.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes15.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes16.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes17.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes18.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes19.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes20.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes22.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes23.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes25.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes26.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes27.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes28.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes29.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes3.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes30.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes31.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes33.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes34.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes35.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes36.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes37.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes38.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes39.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes4.JPG" />
+	  <None Remove="Resources\Images\quiz\principiantes40.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes41.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes42.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes43.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes44.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes45.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes46.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes47.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes48.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes49.JPG" />
+	  <None Remove="Resources\Images\quiz\principiantes50.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes52.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes53.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes55.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes56.JPG" />
+	  <None Remove="Resources\Images\quiz\principiantes57.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes58.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes59.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes60.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes61.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes62.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes63.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes64.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes65.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes66.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes67.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes68.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes69.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes70.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes71.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes72.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes73.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes74.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes75.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes76.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes77.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes78.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes79.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes8.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes80.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes81.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes82.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes83.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes84.JPG" />
+	  <None Remove="Resources\Images\quiz\principiantes85.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes86.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes87.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes88.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes89.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes90.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes91.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes92.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes93.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes94.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes95.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes96.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes97.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes98.jpg" />
+	  <None Remove="Resources\Images\quiz\principiantes99.jpg" />
+	  <None Remove="Resources\Images\sub\sub_1.png" />
+	  <None Remove="Resources\Images\sub\sub_2.png" />
+	  <None Remove="Resources\Images\sub\sub_3.png" />
+	  <None Remove="Resources\Raw\bronze.json" />
+	  <None Remove="Resources\Raw\gold.json" />
+	  <None Remove="Resources\Raw\quiz.test.json" />
+	  <None Remove="Resources\Raw\sad.json" />
+	  <None Remove="Resources\Raw\silver.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\quiz\expertos1.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos100.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos101.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos102.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos103.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos104.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos105.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos106.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos107.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos108.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos109.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos11.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos110.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos111.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos112.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos113.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos114.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos115.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos116.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos117.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos118.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos119.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos12.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos120.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos121.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos122.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos123.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos124.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos125.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos126.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos127.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos128.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos129.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos13.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos130.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos131.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos132.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos133.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos134.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos135.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos136.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos137.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos138.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos139.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos14.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos140.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos141.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos142.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos143.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos144.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos145.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos146.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos147.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos148.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos149.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos15.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos150.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos151.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos152.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos153.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos154.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos155.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos156.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos157.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos158.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos159.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos16.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos160.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos161.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos162.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos163.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos164.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos165.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos166.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos167.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos168.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos169.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos170.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos171.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos172.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos173.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos174.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos175.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos176.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos18.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos19.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos20.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos21.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos22.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos23.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos24.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos25.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos26.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos27.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos28.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos29.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos30.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos31.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos32.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos33.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos34.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos35.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos36.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos37.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos38.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos39.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos40.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos41.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos42.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos43.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos44.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos45.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos46.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos47.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos48.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos49.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos50.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos51.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos52.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos53.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos54.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos55.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos56.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos57.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos58.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos59.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos6.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos60.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos61.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos62.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos63.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos64.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos66.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos67.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos68.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos69.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos70.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\expertos71.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos72.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos73.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos74.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos75.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos76.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos77.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos78.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos79.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos80.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos81.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos82.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos83.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos84.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos85.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos86.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos87.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos88.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos89.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos9.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos90.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos91.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos92.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos93.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos94.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos95.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos96.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos97.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos98.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\expertos99.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principantes13.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principantes21.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes10.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes100.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes101.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes102.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes103.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes104.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes105.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes14.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes15.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes16.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes17.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes18.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes19.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes20.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes22.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes23.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes25.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes26.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes27.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes28.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes29.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes3.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes30.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes31.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes33.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes34.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes35.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes36.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes37.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes38.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes39.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes4.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes40.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes41.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes42.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes43.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes44.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes45.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes46.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes47.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes48.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes49.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes50.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes52.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes53.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes55.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes56.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes57.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes58.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes59.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes60.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes61.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes62.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes63.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes64.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes65.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes66.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes67.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes68.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes69.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes70.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes71.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes72.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes73.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes74.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes75.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes76.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes77.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes78.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes79.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes8.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes80.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes81.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes82.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes83.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes84.JPG" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes85.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes86.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes87.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes88.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes89.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes90.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes91.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes92.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes93.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes94.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes95.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes96.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes97.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes98.jpg" />
+	  <MauiImage Include="Resources\Images\quiz\principiantes99.jpg" />
+	  <MauiImage Include="Resources\Images\sub\sub_1.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_black.jpg" />
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_blue.jpg" />
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_gray.jpg" />
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_pink.jpg" />
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_red.jpg" />
+	  <MauiImage Include="Resources\Images\Backgrounds\hero_white.jpg" />
+	  <MauiImage Include="Resources\Images\sub\sub_2.png" />
+	  <MauiImage Include="Resources\Images\sub\sub_3.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\QuizPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\QuizResultsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\QuizStartPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

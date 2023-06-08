@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AppCircada.ViewModel"
+             xmlns:converters="clr-namespace:AppCircada.View.Converters"
+             x:DataType="viewmodel:QuizSelectorViewModel"
+             x:Class="AppCircada.View.QuizStartPage"
+             Style="{StaticResource CircadaContentPage}"
+             Title="{Binding Title}">
+
+    <!--Put the Title on the Shield with style-->
+    <Shell.TitleView>
+        <Label Text="{Binding Title}" Style="{StaticResource ShellTitleLabel}"/>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <converters:QuizResultTypeToColorConverter x:Key="QuizResultToColorConverter"/>
+    </ContentPage.Resources>
+
+    <ScrollView Orientation="Vertical">
+        <VerticalStackLayout
+        Padding="20"
+        Spacing="30">
+            <Label 
+            Text="Comenzar un quiz"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            FontSize="Large"
+            Margin="0,10,0,0"/>
+            <Label 
+            Text="¿Cuánto sabes de circo? ¿Cuánto sabes de Circada? Un repaso de compañías y artistas que han participado en Circada, técnicas de circo, proyectos, espacios de circo, protagonistas... Decenas de preguntas te esperan. ¡Enfréntate al reto!"
+            VerticalOptions="Center"
+            FontFamily="FuturaLight"
+            FontSize="Body"
+            HorizontalTextAlignment="Start"
+            LineHeight="1.25"/>
+            <Grid ColumnDefinitions="Auto,Auto"
+              RowDefinitions="*,*,*"
+              RowSpacing="25"
+              ColumnSpacing="6"
+              HorizontalOptions="Center"
+              TranslationX="04">
+                <Button Grid.Column="0" Grid.Row="0"
+                    Command="{Binding StartTestCommand}"
+                    x:Name="StartTest10Q"
+                    Text="Quiz de 10 preguntas"
+                    SemanticProperties.Hint="Comenzar test con 10 preguntas"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource BaseButton}">
+                    <Button.CommandParameter>
+                        <x:Int32>10</x:Int32>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Column="0" Grid.Row="1"
+            Command="{Binding StartTestCommand}"
+            x:Name="StartTest15Q"
+            Text="Quiz de 15 preguntas"
+            SemanticProperties.Hint="Comenzar test con 15 preguntas"
+            HorizontalOptions="Center"
+            Style="{StaticResource BaseButton}">
+                    <Button.CommandParameter>
+                        <x:Int32>15</x:Int32>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Column="0" Grid.Row="2"
+            Command="{Binding StartTestCommand}"
+            x:Name="StartTest25Q"
+            Text="Quiz de 20 preguntas"
+            SemanticProperties.Hint="Comenzar test con 20 preguntas"
+            HorizontalOptions="Center"
+            Style="{StaticResource BaseButton}">
+                    <Button.CommandParameter>
+                        <x:Int32>20</x:Int32>
+                    </Button.CommandParameter>
+                </Button>
+                <!--Trophy background ellipses-->
+                <Ellipse Grid.Column="1"
+                         Grid.Row="0"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                <Ellipse Grid.Column="1"
+                         Grid.Row="1"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                <Ellipse Grid.Column="1"
+                         Grid.Row="2"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                <!--Trophies-->
+                <Image  Grid.Column="1"
+                    Grid.Row="0"
+                    WidthRequest="25">
+                    <Image.Source>
+                        <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{Binding TrophyResult10Q, Converter={StaticResource QuizResultToColorConverter}}"/>
+                    </Image.Source>
+                </Image>
+                <Image  Grid.Column="1"
+                    Grid.Row="1"
+                    WidthRequest="25">
+                    <Image.Source>
+                        <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{Binding TrophyResult15Q, Converter={StaticResource QuizResultToColorConverter}}"/>
+                    </Image.Source>
+                </Image>
+                <Image  Grid.Column="1"
+                    Grid.Row="2"
+                    WidthRequest="25">
+                    <Image.Source>
+                        <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{Binding TrophyResult20Q, Converter={StaticResource QuizResultToColorConverter}}"/>
+                    </Image.Source>
+                </Image>
+            </Grid>
+
+            <Frame Margin="0,10,0,0">
+                <Grid   ColumnDefinitions="Auto,*"
+                    RowDefinitions="*,*,*,*"
+                    RowSpacing="10"
+                    ColumnSpacing="10"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <!--Trophy background ellipses-->
+                    <Ellipse Grid.Column="0"
+                         Grid.Row="0"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                    <Ellipse Grid.Column="0"
+                         Grid.Row="1"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                    <Ellipse Grid.Column="0"
+                         Grid.Row="2"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                    <Ellipse Grid.Column="0"
+                         Grid.Row="3"
+                         Style="{StaticResource TropyBackgroundEllipse}"/>
+                    <!--Trophies-->
+                    <Image  Grid.Column="0"
+                    Grid.Row="3"
+                    WidthRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{AppThemeBinding Light={StaticResource NoTrophyLight}, Dark={StaticResource NoTrophyDark}}"/>
+                        </Image.Source>
+                    </Image>
+                    <Image  Grid.Column="0"
+                    Grid.Row="2"
+                    WidthRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{StaticResource TrophyBronze}"/>
+                        </Image.Source>
+                    </Image>
+                    <Image  Grid.Column="0"
+                    Grid.Row="1"
+                    WidthRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{StaticResource TrophySilver}"/>
+                        </Image.Source>
+                    </Image>
+                    <Image  Grid.Column="0"
+                    Grid.Row="0"
+                    WidthRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FA-Solid" Glyph="&#xf091;"
+                                     Color="{StaticResource TrophyGold}"/>
+                        </Image.Source>
+                    </Image>
+                    <!--Labels-->
+                    <Label Grid.Column="1"
+                    Grid.Row="3"
+                    Text="No has jugado o sabes muy poco de circo. ¡Ven a Circada!"
+                    Style="{StaticResource TrophyLegendLabel}"/>
+                    <Label Grid.Column="1"
+                    Grid.Row="2"
+                    Text="¡Primeros pasos! Aprobaste por los pelos."
+                    Style="{StaticResource TrophyLegendLabel}"/>
+                    <Label Grid.Column="1"
+                    Grid.Row="1"
+                    Text="¡Eres un artista! Tu conocimiento del circo es notable."
+                    Style="{StaticResource TrophyLegendLabel}"/>
+                    <Label Grid.Column="1"
+                    Grid.Row="0"
+                    Text="¡Lo sabes todo del mundo del circo!"
+                    Style="{StaticResource TrophyLegendLabel}"/>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

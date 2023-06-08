@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AppCircada.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:MainPageViewModel"
+             x:Class="AppCircada.View.MainPage"
+             Style="{StaticResource CircadaContentPage}"
+             Title="{Binding Title}">
+
+    <!--Put the Title on the Shield with style-->
+    <Shell.TitleView>
+        <Label Text="{Binding Title}" Style="{StaticResource ShellTitleLabel}"/>
+    </Shell.TitleView>
+    
+    <ScrollView>
+        <Grid RowDefinitions="*,*">
+            <Image Grid.Row="0" Source="logo_circada_negro.png" Margin="10">
+                <Image.Behaviors>
+                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}" />
+                </Image.Behaviors>
+            </Image>
+
+            <VerticalStackLayout
+                Grid.Row="1"
+                Spacing="20"
+                Padding="30,0"
+                VerticalOptions="Center">
+                <Button
+                        Command="{Binding OpenCircadaWebCommand}"
+                        x:Name="OpenCircadaWebBtn"
+                        Text="Ir a la programación del festival"
+                        SemanticProperties.Hint="Ir a la página web de Circada para ver el programa"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource BaseButton}"/>
+                <Button
+                        Command="{Binding OpenVentaEntradasWebCommand}"
+                        x:Name="OpenVentaEntradasWebBtn"
+                        Text="Venta de entradas"
+                        SemanticProperties.Hint="Ir a la página web de Circada para comprar entradas"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource BaseButton}"/>
+                <Button 
+                        Command="{Binding GoToQuizStartCommand}"
+                        x:Name="GoToTestBtn"
+                        Text="🏆 ¿Cuánto sabes de circo? 🏆"
+                        SemanticProperties.Hint="Ir a la página de Test de Circo"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource BaseButton}"/>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

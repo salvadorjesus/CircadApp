@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:AppCircada.ViewModel"
+             xmlns:model="clr-namespace:AppCircada.Model"
+             xmlns:triggers="clr-namespace:AppCircada.View.TriggerActions"
+             x:DataType="viewmodel:QuizPageViewModel"
+             x:Class="AppCircada.View.QuizPage"
+             Style="{StaticResource CircadaContentPage}"
+             Title="{Binding NumQuestions, StringFormat='Quiz de {0} preguntas'}">
+
+    <!--Put the Title on the Shield with style-->
+    <Shell.TitleView>
+        <Label Text="{Binding NumQuestions, StringFormat='Quiz de {0} preguntas'}" Style="{StaticResource ShellTitleLabel}"/>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <Thickness x:Key="ButtonMargin">0,5,0,0</Thickness>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto">
+        <CarouselView Grid.Row="0"
+                      ItemsSource="{Binding QuizQuestions}"
+                      IndicatorView="Indicator"
+                      RemainingItemsThreshold="200">
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodel:QuizQuestionWrapper">
+                    <Frame  HasShadow="True"
+                            Margin="20,20,20,6"
+                            Padding="10">
+                        <!--Question and image-->
+                        <Grid RowDefinitions="6*,4*">
+                            <FlexLayout Grid.Row="0"
+                                        Direction="Column"
+                                        JustifyContent="SpaceEvenly">
+                                <Label Text="{Binding Question}"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       HorizontalTextAlignment="Center"
+                                       Margin="0,5,0,8"/>
+                                <Image BackgroundColor="Transparent"
+                                       Source="{Binding Picture}"
+                                       MaximumHeightRequest="200"
+                                       Aspect="AspectFit"
+                                       IsVisible="{Binding HasPicture}"
+                                       FlexLayout.Grow="1"/>
+                            </FlexLayout>
+                            <!--Buttons-->
+                            <FlexLayout Grid.Row="1"
+                                        JustifyContent="SpaceBetween"
+                                        Direction="Column">
+                                <Button FlexLayout.Grow="0.5"
+                                        Margin="{StaticResource ButtonMargin}"
+                                        Style="{Binding ButtonsStyle[0].Style}"
+                                        Text="{Binding Options[0]}"
+                                        Command="{Binding AnswerQuestionCommand}">
+                                    <Button.CommandParameter>
+                                        <x:Int32>0</x:Int32>
+                                    </Button.CommandParameter>
+                                    <Button.Triggers>
+                                        <DataTrigger Binding="{Binding OptionReplies[0].Reply}"
+                                                     Value="SelectedRight"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:BounceAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding OptionReplies[0].Reply}"
+                                                     Value="SelectedWrong"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:ShakeAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button FlexLayout.Grow="0.5"
+                                        Margin="{StaticResource ButtonMargin}"
+                                        Style="{Binding ButtonsStyle[1].Style}"
+                                        Text="{Binding Options[1]}"
+                                        Command="{Binding AnswerQuestionCommand}">
+                                    <Button.CommandParameter>
+                                        <x:Int32>1</x:Int32>
+                                    </Button.CommandParameter>
+                                    <Button.Triggers>
+                                        <DataTrigger Binding="{Binding OptionReplies[1].Reply}"
+                                                     Value="SelectedRight"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:BounceAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding OptionReplies[1].Reply}"
+                                                     Value="SelectedWrong"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:ShakeAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button FlexLayout.Grow="0.5"
+                                        Margin="{StaticResource ButtonMargin}"
+                                        Style="{Binding ButtonsStyle[2].Style}"
+                                        Text="{Binding Options[2]}"
+                                        Command="{Binding AnswerQuestionCommand}">
+                                    <Button.CommandParameter>
+                                        <x:Int32>2</x:Int32>
+                                    </Button.CommandParameter>
+                                    <Button.Triggers>
+                                        <DataTrigger Binding="{Binding OptionReplies[2].Reply}"
+                                                     Value="SelectedRight"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:BounceAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding OptionReplies[2].Reply}"
+                                                     Value="SelectedWrong"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:ShakeAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button FlexLayout.Grow="0.5"
+                                        Margin="{StaticResource ButtonMargin}"
+                                        Style="{Binding ButtonsStyle[3].Style}"
+                                        Text="{Binding Options[3]}"
+                                        Command="{Binding AnswerQuestionCommand}">
+                                    <Button.CommandParameter>
+                                        <x:Int32>3</x:Int32>
+                                    </Button.CommandParameter>
+                                    <Button.Triggers>
+                                        <DataTrigger Binding="{Binding OptionReplies[3].Reply}"
+                                                     Value="SelectedRight"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:BounceAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding OptionReplies[3].Reply}"
+                                                     Value="SelectedWrong"
+                                                     TargetType="Button">
+                                            <DataTrigger.EnterActions>
+                                                <triggers:ShakeAnimationTriggerAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </FlexLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView Grid.Row="1" 
+            x:Name="Indicator"
+            IndicatorSize="10.5"
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Margin="5,11,5,15"
+            Count="{Binding QuizQuestions.Count}"/>
+    </Grid>
+</ContentPage>

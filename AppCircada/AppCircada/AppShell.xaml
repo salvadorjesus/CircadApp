@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AppCircada.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AppCircada"
+    xmlns:view="clr-namespace:AppCircada.View"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.TabBarIsVisible="False">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Inicio y programa"
+            ContentTemplate="{DataTemplate view:MainPage}"
+            Route="MainPage"
+            Icon="{FontImage FontFamily=FA-Solid, Glyph=, Size=16, Color=Gray}"
+            />
+        <ShellContent
+            Title="Preguntas de circo"
+            ContentTemplate="{DataTemplate view:QuizStartPage}"
+            Route="QuizStartPage"
+            Icon="{FontImage FontFamily=FA-Solid, Glyph=, Size=16, Color=Gray}"/>
+        <ShellContent
+            Title="Acerca de"
+            ContentTemplate="{DataTemplate view:AboutPage}"
+            Route="AboutPage"
+            Icon="{FontImage FontFamily=FA-Solid, Glyph=, Size=16, Color=Gray}"/>
+    </FlyoutItem>
+</Shell>

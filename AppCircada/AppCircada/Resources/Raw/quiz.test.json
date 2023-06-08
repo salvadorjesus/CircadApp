@@ -1,0 +1,90 @@
+[
+  {
+    "question": "¿Cuál es el origen del circo moderno?",
+    "options": [
+      "China",
+      "Egipto",
+      "Grecia",
+      "Roma"
+    ],
+    "answer": 3,
+    "picture": "imagen_circada.png"
+  },
+  {
+    "question": "¿Qué es un payaso de circo?",
+    "options": [
+      "Un acróbata",
+      "Un músico",
+      "Un comediante",
+      "Un malabarista"
+    ],
+    "answer": 3,
+    "picture": ""
+  },
+  {
+    "question": "¿Qué es un trapecio?",
+    "options": [
+      "Una cuerda floja",
+      "Una plataforma elevada",
+      "Un columpio gigante",
+      "Una barra colgante"
+    ],
+    "answer": 4,
+    "picture": "imagen_circada.png"
+  },
+  {
+    "question": "¿Cuál es la compañía de circo más antigua del mundo?",
+    "options": [
+      "Cirque du Soleil",
+      "Ringling Bros. and Barnum & Bailey Circus",
+      "Big Apple Circus",
+      "Circus Krone"
+    ],
+    "answer": 4,
+    "picture": "imagen_circada.png"
+  },
+  {
+    "question": "¿Qué es un malabarista?",
+    "options": [
+      "Alguien que hace trucos con fuego",
+      "Alguien que hace trucos con animales",
+      "Alguien que hace trucos con pelotas o clavas",
+      "Alguien que hace trucos con agua"
+    ],
+    "answer": 3,
+    "picture": ""
+  },
+  {
+    "question": "¿Qué es un contorsionista?",
+    "options": [
+      "Alguien que hace trucos con pelotas o clavas",
+      "Alguien que hace trucos con fuego",
+      "Alguien que hace trucos con animales",
+      "Alguien que hace acrobacias con su cuerpo"
+    ],
+    "answer": 4,
+    "picture": ""
+  },
+  {
+    "question": "¿Qué es un equilibrista?",
+    "options": [
+      "Alguien que hace trucos con pelotas o clavas",
+      "Alguien que hace trucos con fuego",
+      "Alguien que hace trucos con animales",
+      "Alguien que camina sobre una cuerda floja"
+    ],
+    "answer": 4,
+    "picture": "imagen_circada.png"
+  },
+  {
+    "question": "¿Qué es un domador de leones?",
+    "options": [
+      "Alguien que hace trucos con pelotas o clavas",
+      "Alguien que hace trucos con fuego",
+      "Alguien que hace trucos con animales",
+      "Alguien que hace acrobacias con su cuerpo"
+    ],
+    "answer": 3,
+    "picture": ""
+  }
+]

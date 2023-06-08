@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AppCircada.ViewModel"
+             xmlns:converters="clr-namespace:AppCircada.View.Converters"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:DataType="viewmodel:QuizResultsViewModel"
+             x:Class="AppCircada.View.QuizResultsPage"
+             Title="QuizResultsPage">
+    <ContentPage.Resources>
+        <converters:QuizResultTypeToFileNameConverter x:Key="QuizResultConverter"/>
+    </ContentPage.Resources>
+    
+    <Grid ColumnDefinitions="*"
+              RowDefinitions="*,Auto">
+        <skia:SKConfettiView Grid.Row="0"
+                             Grid.RowSpan="2">
+            <skia:SKConfettiView.Systems>
+                <skia:SKConfettiSystem Lifetime="1" FadeOut="False" >
+                    <skia:SKConfettiSystem.Emitter>
+                        <skia:SKConfettiEmitter Duration="1"/>
+                    </skia:SKConfettiSystem.Emitter>
+                </skia:SKConfettiSystem>
+            </skia:SKConfettiView.Systems>
+        </skia:SKConfettiView>
+                             
+        <VerticalStackLayout Grid.Row="0">
+
+            <Label  Text="¡Quiz Finalizado!"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    FontSize="Title"
+                    Margin="0,80,0,50"
+                    FontFamily="FuturaBold"/>
+            <Label VerticalOptions="Center" 
+                   HorizontalOptions="Center"
+                   FontSize="Large"
+                   FontFamily="FuturaBook">
+                <Label.Text>
+                    <MultiBinding StringFormat="Ha acertado {0} de {1} preguntas">
+                        <Binding Path="CorrectAnswers"/>
+                        <Binding Path="NumQuestions"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            <skia:SKLottieView
+                x:Name="LottieView"
+                Margin="0,20"
+                SemanticProperties.Description="An animation that illustrates the quiz results."
+                HeightRequest="200"
+                WidthRequest="200"
+                HorizontalOptions="Center">
+                <!--
+                Does not work with XAML with the current version of skiasharp extension.
+                I decided to implement this from the code behind (without binding, since
+                it is not necessary.
+                <skia:SKLottieView.Source>
+                    <skia:SKFileLottieImageSource File="{Binding QuizResultCategory, Converter={StaticResource QuizResultConverter}}"/>
+                </skia:SKLottieView.Source>
+                -->
+            </skia:SKLottieView>
+            <Label VerticalOptions="Center" 
+                   HorizontalOptions="Center"
+                   FontSize="Large"
+                   FontFamily="FuturaBook"
+                   Margin="25,0,25,0"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding ResultMessage}"/>
+        </VerticalStackLayout>
+        <Button     Grid.Row="1"
+                        Text="Volver al Quiz"
+                        SemanticProperties.Hint="Volver al Quiz"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource BaseButton}"
+                        Clicked="Volver_Button_Clicked"
+                        Margin="50"/>
+    </Grid>
+</ContentPage>
