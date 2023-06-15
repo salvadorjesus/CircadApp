@@ -13,3 +13,10 @@ https://github.com/salvadorjesus/CircadApp/assets/637125/87e19e8d-1990-4bf5-95e9
 A non-standard schema to quickly wrap your head around the project files and structure:
 
 ![Loose schema 1](https://github.com/salvadorjesus/CircadApp/assets/637125/9473148b-036d-49bf-953d-c5b65cb5e6ab)
+
+### Brief summary
+Quiz questions are stored in a JSON file. Every question has a title and four response options, with only one of them being the correct response. Every question can have an image (stored on disk as part of the app raw data).
+
+The QuizPageViewModel loads a quiz from disk using the QuizService class and warps the questions data with several ViewModel classes that add observable and responsive properties to the quiz raw data. In this way, the View can react to user inputs and render the question buttons with different styles, animations, etc.
+
+User score is reevaluated every time the user completes a quiz, showing the user a Lottie animation. It is saved to disk safely by serializing the Model objects to a JSON file using the UserScoreService class. The user score is presented to the users as small trophies in the QuizStartPage.
