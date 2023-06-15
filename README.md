@@ -1,5 +1,9 @@
 # CircadApp
 App for the “street circus” Circada Festival celebrated annually in Seville. Written in .Net Maui.
+
+The original idea was to provide the user an app where they can have the festival schedule and artist information. However, this was solved by embedding the website of the festival, saving a lot of development time. We then used the saved resources to develop a quiz about street circus that is having a good reception among its aficionados.
+
+We are currently measuring the app engagement and planning where to go next.
 # Video
 A demo video:
 
