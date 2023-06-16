@@ -27,4 +27,4 @@ The QuizPageViewModel loads a quiz from disk using the QuizService class and war
 
 User score is reevaluated every time the user completes a quiz, showing the user a Lottie animation. It is saved to disk safely by serializing the Model objects to a JSON file using the UserScoreService class. The user score is presented to the users as small trophies in the QuizStartPage.
 
-The weak reference messenger is used to notify the QuizPage that the shell is trying to navigate away from the quiz. If the quiz is not ye completed, the user is asked for confirmation.
+The weak reference messenger is used to notify the QuizPage that the shell is trying to navigate away from the quiz. If the quiz is not yet completed, the user is asked for confirmation.
