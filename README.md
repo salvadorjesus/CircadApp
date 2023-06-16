@@ -26,3 +26,5 @@ Quiz questions are stored in a JSON file. Every question has a title and four re
 The QuizPageViewModel loads a quiz from disk using the QuizService class and warps the questions data with several ViewModel classes that add observable and responsive properties to the quiz raw data. In this way, the View can react to user inputs and render the question buttons with different styles, animations, etc.
 
 User score is reevaluated every time the user completes a quiz, showing the user a Lottie animation. It is saved to disk safely by serializing the Model objects to a JSON file using the UserScoreService class. The user score is presented to the users as small trophies in the QuizStartPage.
+
+The weak reference messenger is used to notify the QuizPage that the shell is trying to navigate away from the quiz. If the quiz is not ye completed, the user is asked for confirmation.
